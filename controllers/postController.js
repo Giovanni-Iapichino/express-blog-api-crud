@@ -3,10 +3,12 @@ let { posts } = require("../data/db");
 //# INDEX
 
 const index = (req, res) => {
-  res.json({
-    message: "lista dei post",
-    data: { posts },
-  });
+  let filteredPosts = posts;
+
+  if (req.query.tags) {
+    filteredPosts = posts.filter((post) => post.tags.includes(req.query.tags));
+  }
+  res.json(filteredPosts);
 };
 
 //# SHOW
@@ -14,8 +16,17 @@ const index = (req, res) => {
 const show = (req, res) => {
   const id = parseInt(req.params.id);
   const post = posts.find((currentPost) => currentPost.id === id);
+  if (!post) {
+    res.status(404);
+
+    return res.json({
+      message: "Post non trovato",
+      error: "Not found",
+      status: 404,
+    });
+  }
   res.json({
-    message: "dettagli del post" + id,
+    message: "dettagli del post " + id,
     data: post,
   });
 };
@@ -40,13 +51,19 @@ const modify = (req, res) => {
 
 const destroy = (req, res) => {
   const id = parseInt(req.params.id);
-  const post = posts.filter((post) => id !== post.id);
-  res.json({
-    message: "eliminazione del post",
-    data: post,
-    status: 204,
-  });
-  console.log(post);
+  const post = posts.find((post) => post.id === id);
+  if (!post) {
+    res.status(404);
+
+    return res.json({
+      message: "Post non trovato",
+      error: "Not found",
+      status: 404,
+    });
+  }
+  posts.splice(posts.indexOf(post), 1);
+  console.log("Lista aggiornata dei post: ", posts);
+  res.sendStatus(204);
 };
 
 module.exports = { index, show, create, update, modify, destroy };
