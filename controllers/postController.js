@@ -1,4 +1,4 @@
-let { posts } = require("../db");
+let { posts } = require("../data/db");
 
 //# INDEX
 
@@ -44,7 +44,9 @@ const destroy = (req, res) => {
   res.json({
     message: "eliminazione del post",
     data: post,
+    status: 204,
   });
+  console.log(post);
 };
 
 module.exports = { index, show, create, update, modify, destroy };

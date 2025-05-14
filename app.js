@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 const postsRouter = require("./routers/posts");
 
-const { posts } = require("./db");
+const { posts } = require("../express-blog-api-crud/data/db");
 
 app.use(express.static("public"));
 
