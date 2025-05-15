@@ -50,7 +50,25 @@ const store = (req, res) => {
 //# UPDATE
 
 const update = (req, res) => {
-  res.json({ message: "modifica integrale del post" });
+  const id = parseInt(req.params.id);
+  const post = posts.find((currentPost) => currentPost.id === id);
+
+  if (!post) {
+    res.status(404);
+
+    return res.json({
+      message: "Post non trovato",
+      error: "Not found",
+      status: 404,
+    });
+  }
+
+  const { title, content, image, tags } = req.body;
+
+  const updatedPost = { id: id, title, content, image, tags };
+  posts.splice(posts.indexOf(post), 1, updatedPost);
+
+  res.json(updatedPost);
 };
 
 const modify = (req, res) => {
