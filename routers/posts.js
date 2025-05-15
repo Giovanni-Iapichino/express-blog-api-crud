@@ -12,7 +12,7 @@ router.get("/:id", postController.show);
 
 //# CREATE
 
-router.post("/", postController.create);
+router.post("/", postController.store);
 
 //# UPDATE
 

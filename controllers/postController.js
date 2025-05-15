@@ -33,8 +33,8 @@ const show = (req, res) => {
 
 //# CREATE
 
-const create = (req, res) => {
-  res.json({ message: "creazione del post" });
+const store = (req, res) => {
+  res.json(req.body);
 };
 
 //# UPDATE
@@ -66,4 +66,4 @@ const destroy = (req, res) => {
   res.sendStatus(204);
 };
 
-module.exports = { index, show, create, update, modify, destroy };
+module.exports = { index, show, store, update, modify, destroy };

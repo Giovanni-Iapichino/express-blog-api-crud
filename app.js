@@ -6,6 +6,7 @@ const postsRouter = require("./routers/posts");
 const { posts } = require("../express-blog-api-crud/data/db");
 
 app.use(express.static("public"));
+app.use(express.json());
 
 app.use("/posts", postsRouter);
 
