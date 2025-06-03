@@ -27,7 +27,7 @@ const show = (req, res) => {
   }
   res.json({
     message: "dettagli del post " + id,
-    data: post,
+    post,
   });
 };
 
